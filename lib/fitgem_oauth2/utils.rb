@@ -6,7 +6,7 @@ module FitgemOauth2
       return nil if date.nil?
 
       valid_semantic_date = %w[today yesterday].include? date
-      valid_date_string = (date =~ /\d{4}\-\d{2}\-\d{2}/) == 0
+      valid_date_string = (date =~ /\d{4}\-\d{2}\-\d{2}/) == 0 if date.is_a?(String)
       if valid_date_string
         date
       elsif valid_semantic_date
@@ -19,7 +19,7 @@ module FitgemOauth2
     end
 
     def format_time(time)
-      if (time =~ /\d{2}:\d{2}/) == 0
+      if time.is_a?(String) && (time =~ /\d{2}:\d{2}/) == 0
         time
       elsif time.is_a?(DateTime) || time.is_a?(Time)
         time.strftime('%H:%M')
